@@ -264,6 +264,10 @@
             // 
             this.errorDisplay.ContainerControl = this;
             // 
+            // SaveDialog
+            // 
+            this.SaveDialog.Filter = "Text Files|*.txt";
+            // 
             // dgvResults
             // 
             this.dgvResults.AllowUserToAddRows = false;

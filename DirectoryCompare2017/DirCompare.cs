@@ -116,7 +116,7 @@ namespace DirectoryCompare2017
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -139,7 +139,7 @@ namespace DirectoryCompare2017
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
         }
@@ -232,7 +232,7 @@ namespace DirectoryCompare2017
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -241,27 +241,27 @@ namespace DirectoryCompare2017
 
             DataGridViewRow returnRow = new DataGridViewRow();
             //Type, Name, Corresponding, Description
-            string discrepancy = "This folder would correspond to the existing folder " + folderName + ".";
+            string discrepancy = "Missing directory - this folder would correspond to the existing folder " + folderName + ".";
             returnRow.CreateCells(dgvResults, "Directory", altDirectory, discrepancy);
 
             return returnRow;
-
-            //Assemble text for addition to output box.
-            //returnString = "Directory missing: " + vbCrLf;
-            //returnString += altDirectory + " does not exist." + vbCrLf;
-            //returnString += "This folder would correspond to the existing folder" + vbCrLf;
-            //returnString += folderName + vbCrLf + "found within the primary directory." + vbCrLf + vbCrLf;
-
         }
 
         private DataGridViewRow FileNotice(string fileNameOnly, string directoryPath, string altDirectory)
         {
             DataGridViewRow returnRow = new DataGridViewRow();
-            //Type, Name, Corresponding, Description
 
-            returnRow.CreateCells(dgvResults, "File", fileNameOnly, "File does not exist in: " + altDirectory);
+            try
+            {
+                returnRow.CreateCells(dgvResults, "File", fileNameOnly, "File does not exist in: " + altDirectory);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
             return returnRow;
+
         }
 
         private bool ValidateInputs()
@@ -318,15 +318,32 @@ namespace DirectoryCompare2017
 
         private void SaveOutput(object sender, EventArgs e)
         {
-
+            StreamWriter resultsOutput;
             try
             {
+                // Prompt user for file location to save text file with results.
                 if(SaveDialog.ShowDialog() == DialogResult.OK)
                 {
+                    // Verify path exists.
                     if (SaveDialog.CheckPathExists)
                     {
-                        
-                        //rtbResults.SaveFile(SaveDialog.FileName, RichTextBoxStreamType.RichText);
+                        resultsOutput = new StreamWriter(SaveDialog.FileName);
+
+                        // Output all rows from the results grid to the text file.
+                        foreach(DataGridViewRow dgvRow in dgvResults.Rows)
+                        {
+                            foreach(DataGridViewCell dgvCell in dgvRow.Cells)
+                            {
+                                resultsOutput.WriteLine(dgvCell.Value);
+                            }
+
+                            resultsOutput.WriteLine("");
+                        }
+
+                        // Make sure everything is written and save.
+                        resultsOutput.Flush();
+                        resultsOutput.Close();
+
                         ProgramStatus1.Text = "File saved to " + SaveDialog.FileName + ".";
                     }
                     else
@@ -347,13 +364,21 @@ namespace DirectoryCompare2017
 
         private void clearOutputToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Clear the output field and status bar.
-            dgvResults.Rows.Clear();
-            tvFolderView.Nodes.Clear();
-            ProgramStatus1.Text = "";
-            ProgramStatus2.Text = "";
-            txtReport.Text = "";
-            txtReport.BackColor = Color.FromName("Menu");
+            try
+            {
+                //Clear the output field and status bar.
+                dgvResults.Rows.Clear();
+                tvFolderView.Nodes.Clear();
+                ProgramStatus1.Text = "";
+                ProgramStatus2.Text = "";
+                txtReport.Text = "";
+                txtReport.BackColor = Color.FromName("Menu");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
         }
 
         private void FolderSearch(object sender, EventArgs e)
@@ -376,8 +401,7 @@ namespace DirectoryCompare2017
                         tbPrimary.Text = folderDialog.SelectedPath;
                     else
                         tbSecondary.Text = folderDialog.SelectedPath;
-                }
-                
+                }               
             }
             catch(Exception ex)
             {
@@ -387,8 +411,17 @@ namespace DirectoryCompare2017
 
         private void tvFolderView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            TreeNode tvnCurrent = tvFolderView.SelectedNode;
-            toolTip1.SetToolTip(tvFolderView, tvnCurrent.ToolTipText);
+            try
+            {
+                // Set the tooltip for the folder browser to match the last selected node.
+                TreeNode tvnCurrent = tvFolderView.SelectedNode;
+                toolTip1.SetToolTip(tvFolderView, tvnCurrent.ToolTipText);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
         }
 
         private void btnExpand_Click(object sender, EventArgs e)
