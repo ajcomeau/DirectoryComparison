@@ -18,6 +18,8 @@ namespace DirectoryCompare2017
         String dirCompare;        //Comparison directory
         Boolean itemsFound;       //Tracks if discrepances were found for output window.
         int fileCount = 0;        //Number of files processed.
+        int dirCount = 0;         //Number of directories processed.
+        int directoryCount, compareDirCount; // Number of directories found
 
         public DirectoryComp()
         {
@@ -44,10 +46,27 @@ namespace DirectoryCompare2017
                     dirPrimary = tbPrimary.Text;
                     dirCompare = tbSecondary.Text;
 
-                    //Reset filecount.
+                    // Count all directories and subdirectories for progress bar.
+                    // We're comparing both ways so it has to be the sum of both primary and secondary.
+
+                    ProgramStatus1.Text = "Getting count of directories ... ";
+                    Application.DoEvents();
+                    directoryCount = Directory.GetDirectories(dirPrimary, "*.*", SearchOption.AllDirectories).Count();
+                    ProgramStatus1.Text = "Getting count of directories - one moment, please ...";
+                    Application.DoEvents();
+                    compareDirCount = Directory.GetDirectories(dirCompare, "*.*", SearchOption.AllDirectories).Count();
+                    directoryCount += compareDirCount;
+
+                    // Initialize progress bar.
+                    pbProgress.Maximum = directoryCount;
+                    pbProgress.Value = 0;
+                    pbProgress.Visible = true;
+
+                    //Reset file and directory counts.
                     dgvResults.BackColor = Color.FromName("Control");
                     dgvResults.ForeColor = Color.Black;
                     fileCount = 0;
+                    dirCount = 0;
                     ProgramStatus1.Text = "Comparing secondary directory to primary.";
                     CompareDirectories(dirPrimary);
 
@@ -74,6 +93,8 @@ namespace DirectoryCompare2017
                         ProgramStatus2.Text = "File / folder mismatch.";
                     }
 
+                    pbProgress.Value = 0;
+                    pbProgress.Visible = false;
                 }
             }
             catch (Exception ex)
@@ -97,7 +118,7 @@ namespace DirectoryCompare2017
 
                 TreeNode[] dirNodeFind = tvFolderView.Nodes.Find(DirectoryPath, true);
                 TreeNode[] parentNodeFind = tvFolderView.Nodes.Find(ParentPath, true);
-
+                
                 // Look for the directory and its parent to place it in the TreeView.
                 // If it's already there, do nothing.
                 if (dirNodeFind.Length == 0)
@@ -154,6 +175,13 @@ namespace DirectoryCompare2017
             // Get the corresponding directory.
             string CorrespondingPath = dirCompare + DirectoryPath.Substring(dirPrimary.Length);
             string comparisonFile, fileNameOnly;
+
+            // Increment directory count and update progress bar for every 10.
+            dirCount += 1;
+            if(dirCount % 10 == 0)
+            {
+                pbProgress.Value = dirCount;
+            }
 
             try
             {
@@ -378,7 +406,6 @@ namespace DirectoryCompare2017
             {
                 MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
         }
 
         private void FolderSearch(object sender, EventArgs e)
