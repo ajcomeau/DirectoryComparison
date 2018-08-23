@@ -60,6 +60,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnExpand = new System.Windows.Forms.Button();
             this.pbProgress = new System.Windows.Forms.ProgressBar();
+            this.chkFileCompare = new System.Windows.Forms.CheckBox();
             this.MainMenu.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorDisplay)).BeginInit();
@@ -258,7 +259,7 @@
             // ProgramStatus2
             // 
             this.ProgramStatus2.Name = "ProgramStatus2";
-            this.ProgramStatus2.Size = new System.Drawing.Size(672, 17);
+            this.ProgramStatus2.Size = new System.Drawing.Size(703, 17);
             this.ProgramStatus2.Spring = true;
             this.ProgramStatus2.Text = "          ";
             this.ProgramStatus2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -338,11 +339,22 @@
             this.pbProgress.TabIndex = 32;
             this.pbProgress.Visible = false;
             // 
+            // chkFileCompare
+            // 
+            this.chkFileCompare.AutoSize = true;
+            this.chkFileCompare.Location = new System.Drawing.Point(15, 166);
+            this.chkFileCompare.Name = "chkFileCompare";
+            this.chkFileCompare.Size = new System.Drawing.Size(196, 17);
+            this.chkFileCompare.TabIndex = 33;
+            this.chkFileCompare.Text = "Compare file sizes and modify dates.";
+            this.chkFileCompare.UseVisualStyleBackColor = true;
+            // 
             // DirectoryComp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(755, 440);
+            this.Controls.Add(this.chkFileCompare);
             this.Controls.Add(this.pbProgress);
             this.Controls.Add(this.btnExpand);
             this.Controls.Add(this.txtReport);
@@ -409,6 +421,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button btnExpand;
         private System.Windows.Forms.ProgressBar pbProgress;
+        private System.Windows.Forms.CheckBox chkFileCompare;
     }
 }
 

@@ -175,7 +175,46 @@ namespace DirectoryCompare2017
             }
 
         }
-        
+
+        private DataGridViewRow CompareFiles(string firstFile, string secondFile)
+        {
+            FileInfo firstFileInfo = new FileInfo(firstFile);
+            FileInfo secondFileInfo = new FileInfo(secondFile);
+            String resultMessage = "";
+            DataGridViewRow resultRow = new DataGridViewRow();
+
+            try
+            {
+                // Compare modification dates.
+
+                if (firstFileInfo.LastWriteTime != secondFileInfo.LastWriteTime)
+                {
+                    if (secondFileInfo.LastWriteTime > firstFileInfo.LastWriteTime)
+                        resultMessage = secondFile + " appears to be newer than " + firstFile + ". ";
+                    else
+                        resultMessage = firstFile + " appears to be newer than " + secondFile + ". ";
+                }
+
+                // Compare file sizes.
+
+                if (firstFileInfo.Length != secondFileInfo.Length)
+                {
+                    if (secondFileInfo.Length > firstFileInfo.Length)
+                        resultMessage += secondFile + " is larger than " + firstFile + ". ";
+                    else
+                        resultMessage += firstFile + " is larger than " + secondFile + ". ";
+                }
+
+                resultRow.CreateCells(dgvResults, "File", secondFile, resultMessage);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error ...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            return resultRow;
+
+        }
 
         private void CompareDirectories(string DirectoryPath)
         {
@@ -186,6 +225,7 @@ namespace DirectoryCompare2017
             // Get the corresponding directory.
             string CorrespondingPath = dirCompare + DirectoryPath.Substring(dirPrimary.Length);
             string comparisonFile, fileNameOnly;
+            DataGridViewRow fileComparisonResult;
 
             // Increment directory count and update progress bar for every 10.
             dirCount += 1;
@@ -214,18 +254,33 @@ namespace DirectoryCompare2017
                     if (nbrFiles > 0)
                     {
                         // fileName returns full path and file.
-                        foreach (string fileName in Directory.GetFiles(DirectoryPath))
+                        foreach (string primaryFile in Directory.GetFiles(DirectoryPath))
                         {
                             // Increment file count.
                             fileCount += 1;
                             //Determine filepath / name of corresponding file by replacing the path ...
-                            fileNameOnly = Path.GetFileName(fileName);
+                            fileNameOnly = Path.GetFileName(primaryFile);
                             comparisonFile = CorrespondingPath + "\\" + fileNameOnly;
                             if (!System.IO.File.Exists(comparisonFile))
                             {
                                 dgvResults.Rows.Add(FileNotice(fileNameOnly, DirectoryPath, CorrespondingPath));
                                 UpdateTreeViewStatus(CorrespondingPath, Color.Orange, "Missing files");
                                 itemsFound = true;
+                            }
+                            else
+                            {
+                                if (chkFileCompare.Checked)
+                                {
+                                    fileComparisonResult = CompareFiles(primaryFile, comparisonFile);
+                                    if (fileComparisonResult.Cells.Count > 0)
+                                    {
+                                        if(fileComparisonResult.Cells[2].Value.ToString().Length > 0)
+                                        {
+                                            dgvResults.Rows.Add(fileComparisonResult);
+                                            UpdateTreeViewStatus(CorrespondingPath, Color.Yellow, "Mismatched files");
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
