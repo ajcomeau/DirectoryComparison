@@ -269,13 +269,16 @@ namespace DirectoryCompare2017
                             }
                             else
                             {
+                                // If the user has opted to check file sizes and dates ...
                                 if (chkFileCompare.Checked)
                                 {
                                     fileComparisonResult = CompareFiles(primaryFile, comparisonFile);
+                                    // A match should not return anything for the third cell in the row.
                                     if (fileComparisonResult.Cells.Count > 0)
                                     {
                                         if(fileComparisonResult.Cells[2].Value.ToString().Length > 0)
                                         {
+                                            // If there is a result message, add it to the data grid.
                                             dgvResults.Rows.Add(fileComparisonResult);
                                             UpdateTreeViewStatus(CorrespondingPath, Color.Yellow, "Mismatched files");
                                         }
