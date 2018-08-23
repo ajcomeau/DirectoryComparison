@@ -72,7 +72,7 @@
             this.fileToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(681, 24);
+            this.MainMenu.Size = new System.Drawing.Size(755, 24);
             this.MainMenu.TabIndex = 0;
             this.MainMenu.Text = "MainMenu";
             // 
@@ -128,7 +128,7 @@
             this.Label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label1.Location = new System.Drawing.Point(15, 31);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(654, 34);
+            this.Label1.Size = new System.Drawing.Size(728, 34);
             this.Label1.TabIndex = 14;
             this.Label1.Text = "Enter the two directories to be compared in the fields below and click the Compar" +
     "e button to begin the comparison.";
@@ -140,13 +140,13 @@
             this.tbPrimary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbPrimary.Location = new System.Drawing.Point(15, 84);
             this.tbPrimary.Name = "tbPrimary";
-            this.tbPrimary.Size = new System.Drawing.Size(354, 23);
+            this.tbPrimary.Size = new System.Drawing.Size(428, 23);
             this.tbPrimary.TabIndex = 15;
             // 
             // btnPrimaryDir
             // 
             this.btnPrimaryDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrimaryDir.Location = new System.Drawing.Point(373, 84);
+            this.btnPrimaryDir.Location = new System.Drawing.Point(447, 84);
             this.btnPrimaryDir.Name = "btnPrimaryDir";
             this.btnPrimaryDir.Size = new System.Drawing.Size(34, 23);
             this.btnPrimaryDir.TabIndex = 16;
@@ -177,7 +177,7 @@
             // btnSecondaryDir
             // 
             this.btnSecondaryDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSecondaryDir.Location = new System.Drawing.Point(373, 137);
+            this.btnSecondaryDir.Location = new System.Drawing.Point(447, 137);
             this.btnSecondaryDir.Name = "btnSecondaryDir";
             this.btnSecondaryDir.Size = new System.Drawing.Size(34, 23);
             this.btnSecondaryDir.TabIndex = 19;
@@ -192,14 +192,14 @@
             this.tbSecondary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbSecondary.Location = new System.Drawing.Point(15, 137);
             this.tbSecondary.Name = "tbSecondary";
-            this.tbSecondary.Size = new System.Drawing.Size(354, 23);
+            this.tbSecondary.Size = new System.Drawing.Size(428, 23);
             this.tbSecondary.TabIndex = 18;
             // 
             // btnCompare
             // 
             this.btnCompare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCompare.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCompare.Location = new System.Drawing.Point(303, 166);
+            this.btnCompare.Location = new System.Drawing.Point(377, 166);
             this.btnCompare.Name = "btnCompare";
             this.btnCompare.Size = new System.Drawing.Size(104, 32);
             this.btnCompare.TabIndex = 21;
@@ -219,7 +219,7 @@
             // btnSaveResults
             // 
             this.btnSaveResults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSaveResults.Location = new System.Drawing.Point(15, 340);
+            this.btnSaveResults.Location = new System.Drawing.Point(15, 358);
             this.btnSaveResults.Name = "btnSaveResults";
             this.btnSaveResults.Size = new System.Drawing.Size(86, 23);
             this.btnSaveResults.TabIndex = 24;
@@ -230,7 +230,7 @@
             // btnClear
             // 
             this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClear.Location = new System.Drawing.Point(578, 340);
+            this.btnClear.Location = new System.Drawing.Point(652, 358);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(79, 23);
             this.btnClear.TabIndex = 25;
@@ -243,9 +243,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ProgramStatus1,
             this.ProgramStatus2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 400);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 418);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(681, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(755, 22);
             this.statusStrip1.TabIndex = 26;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -258,8 +258,10 @@
             // ProgramStatus2
             // 
             this.ProgramStatus2.Name = "ProgramStatus2";
-            this.ProgramStatus2.Size = new System.Drawing.Size(37, 17);
+            this.ProgramStatus2.Size = new System.Drawing.Size(672, 17);
+            this.ProgramStatus2.Spring = true;
             this.ProgramStatus2.Text = "          ";
+            this.ProgramStatus2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // errorDisplay
             // 
@@ -279,7 +281,7 @@
             this.dgvResults.Location = new System.Drawing.Point(15, 201);
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.ReadOnly = true;
-            this.dgvResults.Size = new System.Drawing.Size(399, 136);
+            this.dgvResults.Size = new System.Drawing.Size(473, 154);
             this.dgvResults.TabIndex = 27;
             // 
             // tvFolderView
@@ -287,9 +289,9 @@
             this.tvFolderView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tvFolderView.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvFolderView.Location = new System.Drawing.Point(430, 84);
+            this.tvFolderView.Location = new System.Drawing.Point(504, 84);
             this.tvFolderView.Name = "tvFolderView";
-            this.tvFolderView.Size = new System.Drawing.Size(227, 253);
+            this.tvFolderView.Size = new System.Drawing.Size(227, 271);
             this.tvFolderView.TabIndex = 28;
             this.tvFolderView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvFolderView_AfterSelect);
             // 
@@ -297,7 +299,7 @@
             // 
             this.lblDView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDView.AutoSize = true;
-            this.lblDView.Location = new System.Drawing.Point(427, 65);
+            this.lblDView.Location = new System.Drawing.Point(501, 65);
             this.lblDView.Name = "lblDView";
             this.lblDView.Size = new System.Drawing.Size(78, 13);
             this.lblDView.TabIndex = 29;
@@ -308,17 +310,17 @@
             this.txtReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtReport.BackColor = System.Drawing.SystemColors.Menu;
-            this.txtReport.Location = new System.Drawing.Point(139, 343);
+            this.txtReport.Location = new System.Drawing.Point(139, 361);
             this.txtReport.Name = "txtReport";
             this.txtReport.ReadOnly = true;
-            this.txtReport.Size = new System.Drawing.Size(394, 20);
+            this.txtReport.Size = new System.Drawing.Size(468, 20);
             this.txtReport.TabIndex = 30;
             this.txtReport.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnExpand
             // 
             this.btnExpand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExpand.Location = new System.Drawing.Point(582, 58);
+            this.btnExpand.Location = new System.Drawing.Point(656, 58);
             this.btnExpand.Name = "btnExpand";
             this.btnExpand.Size = new System.Drawing.Size(75, 23);
             this.btnExpand.TabIndex = 31;
@@ -330,9 +332,9 @@
             // 
             this.pbProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbProgress.Location = new System.Drawing.Point(15, 370);
+            this.pbProgress.Location = new System.Drawing.Point(15, 388);
             this.pbProgress.Name = "pbProgress";
-            this.pbProgress.Size = new System.Drawing.Size(642, 23);
+            this.pbProgress.Size = new System.Drawing.Size(716, 23);
             this.pbProgress.TabIndex = 32;
             this.pbProgress.Visible = false;
             // 
@@ -340,7 +342,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(681, 422);
+            this.ClientSize = new System.Drawing.Size(755, 440);
             this.Controls.Add(this.pbProgress);
             this.Controls.Add(this.btnExpand);
             this.Controls.Add(this.txtReport);

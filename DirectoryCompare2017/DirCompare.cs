@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 namespace DirectoryCompare2017
 {
@@ -24,6 +25,20 @@ namespace DirectoryCompare2017
         public DirectoryComp()
         {
             InitializeComponent();
+        }
+
+        private void CountDirectories()
+        {
+            try
+            {
+                directoryCount = Directory.GetDirectories(dirPrimary, "*.*", SearchOption.AllDirectories).Count();
+                compareDirCount = Directory.GetDirectories(dirCompare, "*.*", SearchOption.AllDirectories).Count();
+                directoryCount += compareDirCount;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void compareToolStripMenuItem_Click(object sender, EventArgs e)
@@ -48,18 +63,14 @@ namespace DirectoryCompare2017
 
                     // Count all directories and subdirectories for progress bar.
                     // We're comparing both ways so it has to be the sum of both primary and secondary.
-
+                    // This might take a few moments so do it in a new thread.
                     ProgramStatus1.Text = "Getting count of directories ... ";
-                    Application.DoEvents();
-                    directoryCount = Directory.GetDirectories(dirPrimary, "*.*", SearchOption.AllDirectories).Count();
-                    ProgramStatus1.Text = "Getting count of directories - one moment, please ...";
-                    Application.DoEvents();
-                    compareDirCount = Directory.GetDirectories(dirCompare, "*.*", SearchOption.AllDirectories).Count();
-                    directoryCount += compareDirCount;
+                    Thread t = new Thread(CountDirectories);
+                    t.Start();
 
                     // Initialize progress bar.
-                    pbProgress.Maximum = directoryCount;
-                    pbProgress.Value = 0;
+                    pbProgress.Maximum = 100000;
+                    pbProgress.Value = 1;
                     pbProgress.Visible = true;
 
                     //Reset file and directory counts.
@@ -146,7 +157,7 @@ namespace DirectoryCompare2017
 
             TreeNode[] dirNodeFind = tvFolderView.Nodes.Find(DirectoryPath, true);
             TreeNode foundNode;
-
+            
             try
             {
                 // Change the appearance of the specified tree node.
@@ -180,6 +191,15 @@ namespace DirectoryCompare2017
             dirCount += 1;
             if(dirCount % 10 == 0)
             {
+                //if (dirCount > pbProgress.Maximum)
+                if (compareDirCount > 0)
+                {
+                    // Update the progress bar maximum with the number of anticipated directories if it's
+                    // available. Otherwise, just set it as 10 x the number processed so far.
+                    //pbProgress.Maximum = directoryCount > dirCount ? directoryCount : dirCount * 10;
+                    pbProgress.Maximum = directoryCount;
+                }
+
                 pbProgress.Value = dirCount;
             }
 
